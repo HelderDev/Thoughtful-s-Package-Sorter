@@ -1,5 +1,5 @@
 from pydantic import BaseModel, Field
-from sorter.enums.enums import DispatchStack
+
 
 class Package(BaseModel):
     width: float = Field(..., gt=0)
@@ -18,20 +18,14 @@ class Package(BaseModel):
     @property
     def is_bulky(self) -> bool:
         return (
-            self.volume >= self.BULKY_VOLUME_THRESHOLD or
-            max(self.width, self.height, self.length) >= self.BULKY_DIMENSION_THRESHOLD
+            self.volume >= self.BULKY_VOLUME_THRESHOLD
+            or max(self.width, self.height, self.length)
+            >= self.BULKY_DIMENSION_THRESHOLD
         )
 
     @property
     def is_heavy(self) -> bool:
         return self.mass >= self.HEAVY_MASS_THRESHOLD
-
-    def dispatch_stack(self) -> DispatchStack:
-        return (
-            DispatchStack.REJECTED if self.is_bulky and self.is_heavy
-            else DispatchStack.SPECIAL if self.is_bulky or self.is_heavy
-            else DispatchStack.STANDARD
-        )
 
     def to_dict(self):
         return {
@@ -42,5 +36,4 @@ class Package(BaseModel):
             "volume": self.volume,
             "is_bulky": self.is_bulky,
             "is_heavy": self.is_heavy,
-            "dispatch_stack": str(self.dispatch_stack())
         }
