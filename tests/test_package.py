@@ -8,32 +8,32 @@ from sorter.services.dispatcher import sort
 class TestPackageDispatch(unittest.TestCase):
     def test_standard(self):
         result = sort(50, 40, 30, 10)
-        self.assertEqual(result, DispatchStack.STANDARD.value)
+        self.assertEqual(result, DispatchStack.STANDARD)
 
     def test_special_bulky(self):
         result = sort(200, 100, 60, 10)
-        self.assertEqual(result, DispatchStack.SPECIAL.value)
+        self.assertEqual(result, DispatchStack.SPECIAL)
 
     def test_rejected(self):
         result = sort(200, 200, 200, 25)
-        self.assertEqual(result, DispatchStack.REJECTED.value)
+        self.assertEqual(result, DispatchStack.REJECTED)
 
     # Edge boundary tests
     def test_edge_volume_threshold(self):
         result = sort(100, 100, 100, 10)
-        self.assertEqual(result, DispatchStack.SPECIAL.value)
+        self.assertEqual(result, DispatchStack.SPECIAL)
 
     def test_edge_dimension_threshold(self):
         result = sort(150, 50, 50, 10)
-        self.assertEqual(result, DispatchStack.SPECIAL.value)
+        self.assertEqual(result, DispatchStack.SPECIAL)
 
     def test_edge_mass_threshold(self):
         result = sort(50, 50, 50, 20)
-        self.assertEqual(result, DispatchStack.SPECIAL.value)
+        self.assertEqual(result, DispatchStack.SPECIAL)
 
     def test_rejected_exact_threshold(self):
         result = sort(150, 150, 150, 20)
-        self.assertEqual(result, DispatchStack.REJECTED.value)
+        self.assertEqual(result, DispatchStack.REJECTED)
 
     # Validation tests for invalid inputs
     def test_invalid_zero_dimension(self):
