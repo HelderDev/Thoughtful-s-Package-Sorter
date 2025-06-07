@@ -14,6 +14,10 @@ class TestPackageDispatch(unittest.TestCase):
     def test_rejected(self):
         p = Package(width=200, height=200, length=200, mass=25)
         self.assertEqual(p.dispatch_stack(), DispatchStack.REJECTED)
+        
+    def test_heavy_not_bulky(self):
+        p = Package(width=50, height=40, length=30, mass=25)
+        self.assertEqual(p.dispatch_stack(), DispatchStack.SPECIAL)
 
 if __name__ == "__main__":
     unittest.main()
