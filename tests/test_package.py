@@ -2,7 +2,7 @@ import unittest
 from pydantic import ValidationError
 from sorter.models.package import Package
 from sorter.enums.enums import DispatchStack
-from sorter.services.dispatcher import sort
+from sorter.services.dispatcher import calculateStatistics, sort
 
 
 class TestPackageDispatch(unittest.TestCase):
@@ -43,6 +43,8 @@ class TestPackageDispatch(unittest.TestCase):
     def test_invalid_negative_mass(self):
         with self.assertRaises(ValidationError):
             Package(width=50, height=50, length=50, mass=-1)
+
+    
 
 
 if __name__ == "__main__":
